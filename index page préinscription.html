@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AcadAvenir</title>
+    <link rel="stylesheet" href="style page préinscription.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="Capture d’écran 2025-02-22 à 22.40.00.png" alt="Logo AcadAvenir" class="logo">
+    </header>
+    <div class="container">
+        <section class="home">
+            <h1>Bienvenue à AcadAvenir</h1>
+            <p>Nous sommes ravis de vous accueillir sur notre plateforme dédiée à l'éducation du futur. Rejoignez-nous pour une expérience unique et innovante.</p>
+            <p>Les 100 premiers préinscrits recevront un accès gratuit pendant 3 mois !</p>
+            <button class="btn" onclick="showForm()">Je m'inscris</button>
+        </section>
+        <section class="form hidden">
+            <h1 class="hidden-title">Préinscription AcadAvenir</h1>
+            <p><i class="fas fa-gift"></i> Les 100 premiers préinscrits recevront un accès gratuit pendant 3 mois !</p>
+            <div class="iframe-container">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfwsrUPHE_MMDw90QhN28OXeW1HLm_HKBeUrj1-BSoGXPuH0w/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
+            </div>
+        </section>
+        <section class="confirmation hidden">
+            <h1>Félicitations !</h1>
+            <p>Vous êtes préinscrit. Merci ! Vous recevrez un email au lancement et serez informé si vous êtes parmi les 100 premiers.</p>
+            <div class="confetti"></div>
+        </section>
+    </div>
+    <footer>
+        <p><i class="fas fa-chart-line"></i> <a href="#">Suivez l'évolution du projet chaque semaine</a></p>
+    </footer>
+    <script>
+        function showForm() {
+            document.querySelector('.home').classList.add('hidden');
+            document.querySelector('.form').classList.remove('hidden');
+            document.title = ""; // Enlever le titre de la page HTML
+        }
+
+        function iframeLoaded() {
+            const iframe = document.querySelector('iframe');
+            iframe.contentWindow.addEventListener('message', function(event) {
+                if (event.data && event.data === 'submitSuccess') {
+                    showConfirmation();
+                }
+            });
+        }
+
+        function showConfirmation() {
+            document.querySelector('.form').classList.add('hidden');
+            document.querySelector('.confirmation').classList.remove('hidden');
+            confettiAnimation();
+        }
+
+        function confettiAnimation() {
+            const confettiContainer = document.querySelector('.confetti');
+            for (let i = 0; i < 100; i++) {
+                const confetto = document.createElement('div');
+                confetto.classList.add('confetto');
+                confetto.style.left = Math.random() * 100 + 'vw';
+                confetto.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confettiContainer.appendChild(confetto);
+            }
+        }
+    </script>
+</body>
+</html>
